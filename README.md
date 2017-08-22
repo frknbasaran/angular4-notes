@@ -1,9 +1,11 @@
 Angular 4 - Notları
 ====================
 
-Bu kod deposu benim angular 4 notlarımın bir derlemesidir. Angular 2'yi deneyememiştim. Fakat şimdi Angular 4'e bir göz atmaya ve bir ders hazırlamaya karar verdim. Öğrendiğim her şeyi yazacağım, belki bu kod deposu sizin için de rehber olabilir.
+Çevirmen Notu: Notların sahibi ve bu reponun orjinaline sahip olan [co3moz](https://github.com/co3moz)'a linkten ulaşabilirsiniz. Bu repo ingilizce problemi olan arkadaşların da bu notlardan faydalanabilmesi için Türkçe'ye çevrilmiştir.
 
-Çevirmen Notu: Teknik olarak çevirilmemesinin daha doğru olacağını düşündüğüm tabirleri (Input, Output, View, Encapsulation, Databinding) çevirmemeyi tercih ettim. Çünkü bu tabirlerle sorun yaşadığınızda tüm kaynaklarda bu şekilde geçecekler. Onun dışında çeviri hataları varsa her türlü katkıya açık olan bu repoya pr atabilirsiniz.
+Teknik olarak çevirilmemesinin daha doğru olacağını düşündüğüm tabirleri (Input, Output, View, Encapsulation, Databinding) çevirmemeyi tercih ettim. Çünkü bu tabirlerle sorun yaşadığınızda tüm kaynaklarda bu şekilde geçecekler. Onun dışında çeviri hataları varsa her türlü katkıya açık olan bu repoya pr atabilirsiniz.
+
+Bu kod deposu benim angular 4 notlarımın bir derlemesidir. Angular 2'yi deneyememiştim. Fakat şimdi Angular 4'e bir göz atmaya ve bir ders hazırlamaya karar verdim. Öğrendiğim her şeyi yazacağım, belki bu kod deposu sizin için de rehber olabilir.
 
 [Maximilian Schwarzmuller](https://www.udemy.com/the-complete-guide-to-angular-2)'e bu harika rehber için teşekkürler.
 
@@ -17,7 +19,7 @@ Bu kod deposu benim angular 4 notlarımın bir derlemesidir. Angular 2'yi deneye
 - [Çalıştırılmış Projeyi İncelemek](#investigating-created-project)
 - [Yeni bir komponent oluşturmak](#creating-a-new-component)
 - [Komut satırı ile bir komponent oluşturmak](#create-component-with-cli)
-- [Projeye bootstrap eklemek](#including-bootstrap-css-to-project)
+- [Projeye bootstrap css eklemek](#including-bootstrap-css-to-project)
 - [Databinding](#databinding)
 - [Direktifler](#directives)
   - [ngIf](#ngif)
@@ -114,9 +116,9 @@ Proje dizininde `e2e` klasörünü, `src` klasörünü ve birkaç dosyayı göre
 </html>
 ```
 
-In side of body element we have special tag which aren't in html standard. Its `app-root` element.
+Body etiketinin içinde html standardına uymayan özel bir etiketimiz var, `app-root` elementi.
 
-If you check `app` folder. Go dive into `app.component.ts` file. 
+Eğer `app` klasörüne göz atarsanız ve `app.component.ts` adlı dosyayı açarsanız aşağıdaki gibi olduğunu göreceksiniz.
 
 ```ts
 import { Component } from '@angular/core';
@@ -200,9 +202,7 @@ Projede kullanılacak tüm komponentler bu dosyada deklare edilmelidir. Eğer bu
 
 Şu anda diğer dosyaları ayrıntılı olarak açıklamak istemiyorum. Bunlara da sonra geleceğiz.
 
-> Daha derine gitmeden önce typescript öğrenmenizi tavsiye ediyorum. 
-
-> Before going deeper I recommend to learn typescript. Eğer konu hakkında bilginiz yoksa bi göz atıp sonra buradan devam edin.
+> Daha derine gitmeden önce typescript öğrenmenizi tavsiye ediyorum. Eğer konu hakkında bilginiz yoksa bi göz atıp sonra buradan devam edin.
 
 
 ### Yeni bir komponent oluşturmak
@@ -229,7 +229,7 @@ export class ServerComponent {
 }
 ```
 
-Fakat hala tamamlanmadı. Bir şey daha dahil etmeliyiz. `Component` dekoratörü `@angular/core` paketi içinde tanımlı. Bu paketi şu şekilde import edebiliriz.
+Bu şekilde derlenmeyecektir. Bir şey daha dahil etmeliyiz. `Component` dekoratörü `@angular/core` paketi içinde tanımlı. Bu paketi şu şekilde import edebiliriz.
 
 ```ts
 import { Component } from '@angular/core';
@@ -241,8 +241,7 @@ export class ServerComponent {
 
 }
 ```
-
-Now we created a component that angular could use. But still it is invalid. Because it's like untitled subject. It just there but no one could call it. So we have to declare some `selector`.
+Artık anguların kullanabileceği bir komponent oluşturmuş durumdayız. Fakat hala geçersiz. Çünkü bir `selector`'e sahip değil. Var olmasına rağmen herhangi bir yerde çağırılmış değil. Bu yüzden ona bir `selector` deklare etmeliyiz.
 
 ```ts
 import { Component } from '@angular/core';
@@ -255,10 +254,9 @@ export class ServerComponent {
 }
 ```
 
-`selector` is similiar to css selector. If you just put something in there like this `app-server`; it would look for `<app-server></app-server>`. If you put there `.app-server` then you get `<div class="app-server"></div>`. You can even use `[app-server]` to look for properties. (like `<div app-server></div>`).
+`selector` css seçicisi gibidir. Herhangi bir yere direkt olarak `app-server` yazarsanız; `<app-server></app-server>` şeklinde görünecektir. Eğer `.app-server` şeklinde kullanırsanız `<div class="app-server"></div>`. Hatta `[app-server]` bir özellik(property, attribute) olarak bile kullanabilirsiniz. (şöyle `<div app-server></div>`).
 
-
-We have to bind component's html file to component itself. We can use `templateUrl`. It is same as `app.component`.
+Komponentin html dosyasını komponente bağlamalıyız. Bunun için `templateUrl` kullanacağız. Tıpkı `app.component` içinde olduğu gibi.
 
 ```ts
 import {Component} from '@angular/core';
@@ -272,7 +270,7 @@ export class ServerComponent {
 }
 ```
 
-To use this component we have to add it to `app.module.ts`.
+Bu komponenti kullanabilmek için `app.module.ts` içinde deklare etmeliyiz.
 
 
 ```ts
@@ -282,12 +280,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { ServerComponent } from './server/server.component' // <<-- import first
+import { ServerComponent } from './server/server.component' // <<-- önce buradan import ediyoruz
 
 @NgModule({
   declarations: [
     AppComponent,
-    ServerComponent // <<-- we have to add component here
+    ServerComponent // <<-- ardından burada deklarasyonumuza ekliyoruz
   ],
   imports: [
     BrowserModule,
@@ -301,13 +299,13 @@ export class AppModule { }
 
 ```
 
-I will change `server.component.html`
+Şimdi `server.component.html` dosyasını değiştireceğim.
 
 ```html
 <b> server component </b>
 ```
 
-Now we can use this component. Create a new element in `app.component.html`. 
+Artık bu komponenti kullanbiliriz. Hemen `app.component.html` içinde kullanalım.
 
 ```html
 <b> app component </b>
@@ -315,13 +313,13 @@ Now we can use this component. Create a new element in `app.component.html`.
 <app-server></app-server>
 ```
 
-Check out [http://localhost:8080](http://localhost:8080) now.
+Şimdi [http://localhost:8080](http://localhost:8080) adresine bir göz atalım.
 
 ![](images/1.png)
 
-### Create component with cli
+### Komut satırı ile bir komponent oluşturmak
 
-Sometimes we don't want to create basic structures over and over again. So `@angular/cli` has a solution. Using generate function of `ng` we can create components without any labor.
+Bazen sürekli kendini tekrar eden yapıları üst üste oluşturmak istemeyebiliriz. Bu durum için `@angular/cli`'in bir çözümü var. `ng` nin generate fonksiyonu bize yeni komponentler oluşturmak için yardımcı oluyor.
 
 ```
 ng generate component <name>
@@ -329,25 +327,24 @@ or
 ng g c <name>
 ```
 
-for example, If we want to create servers component;
+Eğer bir servers adında bir komponent oluşturmak istersek.
 
 ```
 ng generate component servers
 ```
 
-Will generate `servers` folder in `app` folder and It will create `ts`, `html`, `css` and `.spec.ts` files automaticly. Also it will add declaration to `app.module.ts`. Basically it makes component ready to use.
+`app` dizini içine `servers` klasörü oluşturacak, onun da içine `ts`i `html`, `css` ve `.spec.ts` dosyalarını otomatik oluşturacaktır. Ayrıca `app.module.ts` içine bizim yerimize deklarasyon ekleyecek kısaca komponenti direkt olarak kullanıma hazır hale getirecektir.
 
 
+### Projeye bootstrap css eklemek
 
-### Including bootstrap css to project
-
-We may need bootstrap for our project. How we import it? First we have to download the package.
+Projemizde Boostrap'e ihtiyaç duyabiliriz. Nasıl import edeceğiz? İlk olarak indirmek zorundayız.
 
 ```
 npm install bootstrap --save
 ```
 
-Then open the `.angular-cli.json` file. Modify it like this;
+Ardından `.angular-cli.json` dosyasını açarak şu şekilde düzenlemeliyiz.
 
 ```js
 {
@@ -371,7 +368,7 @@ Then open the `.angular-cli.json` file. Modify it like this;
       "tsconfig": "tsconfig.json",
       "prefix": "app",
       "styles": [
-        "../node_modules/bootstrap/dist/css/bootstrap.min.css", // <<-- we add this line
+        "../node_modules/bootstrap/dist/css/bootstrap.min.css", // <<-- bu satırı ekledik
         "styles.css"
       ],
       "scripts": [],
@@ -410,14 +407,14 @@ Then open the `.angular-cli.json` file. Modify it like this;
 
 ```
 
-Now you can use bootstrap. 
+Artık bootstrap kullanıma hazır.
 
->**Note:** There is a library for [bootstrap](https://github.com/ng-bootstrap/ng-bootstrap). It basically provides components too.
+>**Note:** Bootstrap için bir kütüphane mevcut [bootstrap](https://github.com/ng-bootstrap/ng-bootstrap). Kolayca kullanabileceğimiz bir çok komponent içeriyor.
 
 
 ### Databinding
 
-Databinding is basically binding datas between template and class.
+Databinding basitçe şablonlar ve sınıflar arasında verilerin bağlanmasını sağlar.
 
 * **OUT** String Interpolation: Bind a variable to template. Syntax `{{ data }}`
 * **OUT** Property Binding: Bind a variable to template's property. Syntax `[property]="data"`
