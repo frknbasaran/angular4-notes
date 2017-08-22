@@ -39,12 +39,12 @@ Bu kod deposu benim angular 4 notlarımın bir derlemesidir. Angular 2'yi deneye
 - [Servisler ve Bağlılıkların Zerki](#services-and-dependency-injection)
   - [Bir servisi bir başka servise zerk etmek](#injecting-a-service-into-another-service)
   - [Olay yayınlama servisi](#event-emitting-service)
-- [Rotalar](#router)
-  - [Linkler](#links)
-  - [Aktif Roota](#active-route)
+- [Router](#router)
+  - [Links](#links)
+  - [Active Router](#active-route)
   - [Kod içinden yönlendirme](#navigating-from-code)
-  - [Rota parametreleri](#parameters-of-routes)
-  - [Birleşik Rotalar](#nested-routes)
+  - [Route Parameters](#parameters-of-routes)
+  - [Nested Routes](#nested-routes)
   - [Yönlendirme](#redirecting)
 
 ### Kurulum
@@ -1038,9 +1038,9 @@ export class SomeComponent {
 
 ### ng-content
 
-ng-content elementlerin içeriklerine erişmemizi sağlayan özel bir direktiftir. Normal şartlarda angular komponentlerin içeriklerini ezer. `<app-root>Loading...</app-root>` bu konsept için iyi bir örnektir. Angular `app-root` içine komponenti yerleştirdiği anda Loading metni yok olacaktır. Fakat ya bunu istemezsek.
+ng-content elementlerin içeriklerine erişmemizi sağlayan özel bir direktiftir. Normal şartlarda angular komponentlerin içeriklerini ezer. `<app-root>Loading...</app-root>` bu konsept için iyi bir örnektir. Angular `app-root` içine komponenti yerleştirdiği anda Loading metni yok olacaktır. Fakat ya kaybolmasını bunu istemezsek.
 
-Let me show you an example.
+Bir örnek göstermeme izin verin;
 
 ```ts
 import { Component } from '@angular/core';
@@ -1049,7 +1049,7 @@ import { Component } from '@angular/core';
   selector: 'app-bold',
   template: `
     <b>
-      <ng-content></ng-content> <!-- all content will goes to this -->
+      <ng-content></ng-content> <!-- tüm içerik buraya gelecek -->
     </b>
   `
 })
@@ -1063,27 +1063,27 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-    <app-bold> this text will be bold </app-bold>
+    <app-bold> bu metin kalın yazılacak </app-bold>
   `
 })
 export class AppComponent {
 }
 ```
 
-> **Note:** Last chapter we learnt ViewChild. If you want to use ViewChild in a content it won't work. You have to use `@ContentChild`
+> **Not:** Son bölümde ViewChild'ı öğrnemiştik. Eğer içeriğin içinde ViewChild kullanmak isterseniz çalışmayacaktır. Bunun yerine `@ContentChild` kullanmak zorundasınız.
 
-### Life cycle of components
+### Komponentlerin Yaşam Döngüsü
 
-Components have a standard life cycle. They all have these things. We can hook them.
+Komponentler standart bir yaşam döngüsüne sahiptir. Sahip olduğu tüm methodlar aşağıda. Bunların hepsini kullanabiliriz.
 
-* ngOnChanges: Called after a bound input proerty changes
-* ngOnInit: Called once the component initalized
-* ngDoCheck: Called during every change detection run
-* ngAfterContentInit: Called after content (ng-content) has been projected into view
-* ngAfterContentChecked: Called every time the projected content has been checked
-* ngAfterViewInit: Called after the component's view (and child views) has been initalized.
-* ngAfterViewChecked: Called every time the view (and child views) has been checked.
-* ngOnDestroy: Called once the components is about the be destroyed.
+* ngOnChanges: Bir inputun değeri değiştiğinde.
+* ngOnInit: Komponent ilk kez yüklendiğinde
+* ngDoCheck: Her değişiklik algılandığından çağırılır.
+* ngAfterContentInit: İçerik oluşturulduktan (ng-content) sonra çağırılır
+* ngAfterContentChecked: Yansıtılan içerik her kontrol edildiğinde çağırılır
+* ngAfterViewInit: Komponentin viewları ve alt viewları yansıtıldıktan sonra çağırılır
+* ngAfterViewChecked: View ve alt viewları her kontrol edildiğinde çağırılır
+* ngOnDestroy: Komponent yok edilmeden önce çağırılır
 
 ```ts
 import { Component, OnInit, OnChanges, SimpleChanges, DoCheck, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked, OnDestroy } from '@angular/core';
@@ -1129,11 +1129,11 @@ export class SomeComponent implements OnInit, OnChanges, DoCheck, AfterContentIn
 ```
 
 
-### Creating a new directive
+### Yeni bir direktif yaratmak
 
-We saw some already defined directives. But how we can defire new? This chapter we will dive into that.
+Şimdiye kadar birkaç tane tanımlı direktif gördük. Fakat ya kendimiz yeni bir tane tanımlamak istersek. Bu bölümde buna göz atacağız.
 
-Directives are defining just like components. You have to add them to app.module.ts. We can create manual but I will use @angular/cli.
+Direktifler tıpkı komponentler gibi tanımlanır. Onları da app.module.ts dosyasına eklemek zorundasınız. Elle de oluşturabilirdik ancak ben @angular/cli kullanacağım.
 
 ```
 ng generate directive <name>
@@ -1141,13 +1141,13 @@ or
 ng g d <name>
 ```
 
-I will create a green directive that makes elements green on hover.
+Üzerine gelindiğinde elementleri yeşil yapan green adında bir direktif tanımlayacağım.
 
 ```
 ng g d green
 ```
 
-I remove spec.ts file because we don't care tests just now. There should be green.directive.ts file. Directive files are created as `<name>.directive.ts` syntax. 
+Şimdilik spec.ts dosyalarını yok ediyorum çünkü şu an testlerle ilgilenmiyoruz. Dosyanın adı green.directive.ts olmalı. Direktif dosyaları `<ad>.directive.ts` formatında oluşturulur.
 
 ```ts
 import { Directive } from '@angular/core';
@@ -1160,11 +1160,11 @@ export class GreenDirective {
 }
 ```
 
-This directive will handle the `appGreen` property. If you use somewhere else this then directive will bound to element.
+Bu direktif `appGreen` özelliği ile temsil edilecek. Eğer bu direktifi bir elemente özellik olarak eklerseniz çalıştığını göreceksiniz.
 
 #### HostListener
 
-We trying to make green element whenever mouse hover's the element so we have to catch the events.
+Hover olayında elementi yeşil yapmayı denemiştik yani bir olayı yakalamak zorundayız.
 
 ```ts
 import { Directive, HostListener } from '@angular/core';
@@ -1189,7 +1189,7 @@ export class GreenDirective {
 
 #### HostBinding
 
-How about to change colors? Now we use `@HostBinding`.
+Peki ya renk değişimi? Bunun için de `@HostBinding` i kullanmalıyız.
 
 ```ts
 import { Directive, HostBinding, HostListener } from '@angular/core';
@@ -1212,13 +1212,13 @@ export class GreenDirective {
 }
 ```
 
-### Services and dependency injection
+### Servisler ve bağımlılıkların zerki
 
-Services useful to carry data between components. We do not require any decorator to create service. Lets create an user service.
+Servisler komponentler arası veri taşımak için oldukça kullanışlıdır. Servis oluşturmak için herhangi bir dekoratöre ihtiyaç duymayız. Hadi bir kullanıcı servisi oluşturalım.
 
-I recommend to create file as `<name>.service.ts` syntax. 
+Şu şekilde `<ad>.service.ts` bir söz dizimi ile oluşturmanızı tavsiye ederim.
 
-So lets create a new users.service.ts file on `app` folder.
+Hadi  `app` klasörü içine users.service.ts adında bir dosya oluşturalım.
 
 ```ts
 export class UserService {
@@ -1242,9 +1242,9 @@ export class UserService {
 }
 ```
 
-We basically create an users service class with some property and functions.
+Basitçe bazı fonksiyon ve özellikler içeren bir sınıf oluşturduk.
 
-Lets use it from a component.
+Şimdi bir komponent içinde kullanalım.
 
 ```ts
 import { UserService } from 'user.service';
@@ -1269,11 +1269,11 @@ export class UserListComponent implements OnInit {
 }
 ```
 
-> **Important Note:** Providers will provide a service to component but every creation of userlistComponent will make own UserService. Because we said to component when you initializing create a new service that called UserService. But what if we just want to application wide? We may need to use this datas from outside of this component. We have to use app.module.ts file for this job. Inside of app.module.ts there is providers section that we can put our service. 
+> **Önemli Not:** Providers(Sağlayıcılar) komponente servis sağlarlar ancak userlistComponent her oluşturulduğunda kendi UserService servisini oluşturur. Çünkü biz komponente yapıcı fonksiyon içinde her oluşturulduğunda bir UserService oluşturmasını söyledik. Fakat ya bunun uygulama çapında olmasını isteseydik. Bu verileri komponent dışında da kullanmaya ihtiyaç duyabiliriz. Bu iş için app.module.ts dosyasını kullanacağız. Bu dosyanın içindeki providers alanına servisimizi ekleyeceğiz.
 
-> **Important Note 2:** Children of userListComponent can access same service if they didn't declared a new provider of UserService. So Providers section of component should be used only for creating new provider.
+> **Önemli Not 2:** Eğer yeni bir UserService sağlayıcıs deklare edilmezse userListComponent'in alt komponentleri aynı servisi kullanabilir. Yani komponentin sağlayıcılar kısmı sadece yeni bir sağlayıcı yaratmak için kullanılmalıdır.
 
-You can use `@angular/cli` to generate service
+Ayrıca `@angular/cli`'i de servis oluşturmak için kullanabilirsiniz
 
 ```
 ng generate service <name>
@@ -1281,11 +1281,11 @@ or
 ng g s <name>
 ```
 
-#### Injecting a service into another service
+#### Bir servisi diğer servis içine çağırmak
 
-We may need a service inside of another service. For example we may have a logging service and this service may required to other places. So how we use another service in our service?
+Bir servise bir başka servisin içinde ihtiyaç duyabiliriz. Örneğin bir loglama servisimiz vardır ve diğer servislerden çağırılması gerekiyordur. Peki bu servisi diğerlerinin içinde nasıl kullanabiliriz?
 
-There you go, some example of `@Injectable`
+İşte gidiyoruz, `@Injectable` örnekleri;
 
 ```ts
 import { LoggingService } from 'logging.service';
@@ -1320,9 +1320,10 @@ export class UserService {
 ```
 
 
-#### Event emitting service
+#### Event emitting servisi
 
-We may need a event that emits some information.
+Bazı bilgileri yayınlayan olaylara ihtiyaç duyabiliriz.
+
 
 ```ts
 import { LoggingService } from 'logging.service';
@@ -1359,7 +1360,7 @@ export class UserService {
 }
 ```
 
-In component we can just subscribe the event. We will learn better feature so this feature is just for knowledge.
+Komponent içinde sadece bu olaya abone olalım. Daha iyi bir özellik öğreneceğiz ancak bu özelliği de bilmiş olalım.
 
 ```ts
 import { UserService } from 'user.service';
@@ -1388,20 +1389,20 @@ export class UserListComponent implements OnInit {
 }
 ```
 
-> **Important Note:** When you subscribing manually don't forget to unsubscribe with `ngOnDestroy`.
+> **Önemli Not:** Bir olaya manuel olarak abone olduğunuz zaman, komponent yok olurken `ngOnDestroy` içinde abonelikten çıkmayı unutmayın.
 
 
 ### Router
 
-Router is routes components as pages. To you router first go `app.module.ts`
+Router komponentleri birer sayfaya yönlendirir. Router ilk önce `app.module.ts`'a gider.
 
-Import the Routes from `@angular/router`
+Öncelikle `@angular/router` modülünden Routes objesini import etmeliyiz
 
 ```ts
 import { Routes, RouterModule } from '@angular/router';
 ```
 
-Then create a array that contains following objects.
+Ardından bu obje ile bir dizi tanımlayacağız:
 
 ```ts
 const appRoutes: Routes = [
@@ -1409,7 +1410,7 @@ const appRoutes: Routes = [
 ];
 ```
 
-`path` declares a route in browser. for example `users` makes routes for `/users`. If path given as empty string then it routes for ` ` so this means we can make a home page.
+`path` tarayıcıdaki rotayı tanımlar, örneğin `users` pathi `/users` adresini tanımlar. Eğer path kısmı boş verildiyse ana sayfa olarak kullanılabilir.
 
 ```ts
 const appRoutes: Routes = [
@@ -1417,34 +1418,32 @@ const appRoutes: Routes = [
   { path: 'users', component: UsersComponent}
 ];
 ```
+Ardından bu nesneyi `RouterModule.forRoot(appRoutes)` modülüne parametre olarak geçmeliyiz.
 
-Also you must add `RouterModule.forRoot(appRoutes)` to imports section of `AppModule`.
+> **Not** `app.route.ts` ya da `app.routing.ts` adından dosyalar yaratabilirsiniz. Sizin kararınıza kalmış.
 
-> **Note** You may create a `app.route.ts` or `app.routing.ts` file. Its your decision.
+Şimdi routerın komponentleri nerede göstereceğini tanımlayacağız. `<router-outlet></router-outlet>`.
 
-Now we have to declare where will content go? we will use `<router-outlet></router-outlet>`.
+Bu componenti app.component.html içine ekliyoruz.
 
-I will add this to app.component.html.
+#### Linkler
 
-#### Links
+Bu bölümde router linklerini öğreneceğiz.
 
-In this sub-chapter we will learn router links. 
-
-Normally to make link we simple use `href`.
+Normalde basitçe `href` kullanırız.
 
 ```html
 <a href="/home">Home</a>
 ```
+Ancak angularda bu geçersiz çünkü tıklamalar tam sayfa yenilenmesine neden olur. Uygulamamız mümkün olduğunda kararlı olmak zorunda.
 
-But for angular its invalid because every click causes full page reload. Our application must be stable as possible as can. 
-
-We will use `routerLink` directive.
+Biz `routerLink` direktifini kullanacağız.
 
 ```html
 <a routerLink="/home">Home</a>
 ```
 
-You may use `[]` syntax for expressions.
+Bu şekilde `[]` de kullanabilirsiniz.
 
 ```html
 <a [routerLink]="['/user', id]">Home</a>
@@ -1452,7 +1451,7 @@ You may use `[]` syntax for expressions.
 
 #### Active route
 
-We may need to style active page or etc. To archive this we will use `routerLinkActive`.
+Bazen aktif sayfaya özel bir stil vermek ya da başka bir şey yapmak isteyebiliriz. Bunu başarmak için `routerLinkActive` kullanırız.
 
 ```html
 <div routerLinkActive="active">
@@ -1460,7 +1459,7 @@ We may need to style active page or etc. To archive this we will use `routerLink
 </div>
 ```
 
-routerLinkActive directive has a another directive that named `routerLinkActiveOptions`. With routerLinkActiveOptions we can give options to routerLinkActive. For example for full path check;
+routerLinkActive direktifi `routerLinkActiveOptions` adında başka bir direktife sahiptir. Bu routerLinkActiveOptions direktifiyle birlikte ek opsiyonlar verebiliriz. Örneğin tam path doğrulaması:
 
 ```html
 <div routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
@@ -1470,7 +1469,7 @@ routerLinkActive directive has a another directive that named `routerLinkActiveO
 
 #### Navigating from code
 
-Accesing the router from a component might be useful sometimes.
+Bazen router'a kod içinden erişmek çok kullanışlı olabilir.
 
 ```ts
 import { Component } from '@angular/core';
@@ -1494,7 +1493,7 @@ export class UserListComponent  {
 
 #### Parameters of routes
 
-Examples can show everything.
+Örnekler her şeyi gösteriyor.
 
 ```ts
 const appRoutes: Routes = [
@@ -1524,7 +1523,7 @@ export class UsersComponent  {
 
 #### Nested routes
 
-Nested routes are useful when we need show multiple components at same time.
+Birleşik rotalar birden fazla komponenti aynı anda göstermek istediğimiz zaman kullanışlı olabilir.
 
 ```ts
 const appRoutes: Routes = [
@@ -1536,12 +1535,12 @@ const appRoutes: Routes = [
 ];
 ```
 
-Don't forget to add `<router-outlet></router-outlet>` to parent component.
+Ana komponente `<router-outlet></router-outlet>` eklemeyi unutmayın.
 
 
 #### Redirecting
 
-We may need a redirecting route. I achive that we simple add a route which doesn't have component property. It needs only `redirectTo` parameter.
+Bazen bir route'u yönlendirme isteyebiliriz. Basitçe redirectTo parametresiyle bunu gerçekleştirebiliriz. Örneğin;
 
 ```ts
 const appRoutes: Routes = [
@@ -1551,8 +1550,7 @@ const appRoutes: Routes = [
 ];
 ```
 
-With this feature and wildcard feature we can make 404 pages.
-
+Bu özellikle wildcard özelliği ve 404 sayfaları yapabilirz.
 
 ```ts
 const appRoutes: Routes = [
@@ -1563,4 +1561,4 @@ const appRoutes: Routes = [
 ];
 ```
 
-Simply other routes will redirected to `NotFoundComponent`
+Diğer tüm karşılıksız adresler `NotFoundComponent` komponentine gidecektir.
