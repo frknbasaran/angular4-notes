@@ -705,7 +705,7 @@ Toyota elemanının normal ancak Ford elemanının kırmızı göründüğünü 
 
 #### ngSwitch
 
-ngSwitch is for switching between multiple cases. Its very usefull built-in directive.
+ngSwitch birden fazla durum arasında geçiş içindir. Çok kullanışlı bir ön tanımlı direktif.
 
 ```ts
 import { Component } from '@angular/core';
@@ -728,9 +728,9 @@ export class NameComponent {
 
 ### Input
 
-In this chapter our goal is making some property to accessible from outside. You may ask why we need this? We creating components that has own scope. For example we create "create new user" component and  "user list" component. So one component must effect to another one. 
+Bu bölümde hedefimiz bazı özellikleri dışarıdan erişilebilir hale getirmek olacak. Buna neden ihtiyaç duyalım diye sorabilirsiniz. Biz komponentleri kendi kapsamımızda yaratıyoruz. Örneğin "yeni bir kullanıcı yarat" adında bir komponenti ve "kullanıcıları listele" komponenti oluşturalım. Bu komponentler birbirleriyle etkileşime geçmek zorunda.
 
-First lets do what we wanted. We will create some components.
+Yapmak istediklerimize başlarsak, birkaç komponent oluşturacağız.
 
 ```bash
 ng new my-second-app
@@ -741,14 +741,14 @@ ng g c users/user-item --spec false
 ng g c users/user-create --spec false
 ```
 
-Edit app.component.html as this
+app.component.html dosyasını bu şekilde
 
 ```html
 <app-users></app-users>
 ```
 
 
-Edit users.component.html as this
+users.component.html dosyasını da bu şekilde düzenleyelim
 
 ```html
 <app-user-create></app-user-create>
@@ -756,7 +756,7 @@ Edit users.component.html as this
 <app-user-list></app-user-list>
 ```
 
-Add an array to user-list component file.
+ardından komponent dosyamıza bir kullanıcı dizisi ekleyelim.
 
 ```ts
 import { Component, OnInit } from '@angular/core';
@@ -767,7 +767,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-  users = ['Jack', 'George', 'Another common name']; // << this line
+  users = ['Jack', 'George', 'Another common name']; // << bu satır
   
   constructor() { }
 
@@ -776,13 +776,13 @@ export class UserListComponent implements OnInit {
 }
 ```
 
-Edit user-list.component.html as this
+user-list.component.html komponentini de şu şekilde düzenleyelim.
 
 ```html
 <app-user-item *ngFor="let user of users"></app-user-item>
 ```
 
-Edit user-item.component.html and user-item.component.ts as like this.
+user-item.component.html ve user-item.component.ts dosyalarını da şöyle
 
 ```html
 <p>
@@ -810,13 +810,13 @@ export class UserItemComponent implements OnInit {
 }
 ```
 
-So now we ready to process. If you get this point you probably see this screen.
+Sonuç olarak artık hazırız. Eğer bu noktaya kadar hatasız geldiyseniz şu ekranı görüyor olmalısınız.
 
 ![](images/5.png)
 
-User fields are created but name seems doesn't work at all. We have to do something don't we. UserItemComponent element's name property cannot be accessed by other component because it works in own closure. We have to add a decorator to access. Its called `@Input`
+Kullanıcı alanları oluşturuldu fakat isim kısmı tam çalışıyor gibi görünmüyor. Yapmadığımız bir şeyi yapmak zorundayız. UserItemComponent elementinin name özelliği diğer komponent tarafından erişilemez çünkü kendi kapsamıyla sınırlı. Erişim için bir dekoratör eklemek zorundayız. Dekoratörümüzün adı `@Input`
 
-We now editing user.component.ts 
+Şimdi user.component.ts dosyamızı şu şekilde düzenliyoruz
 
 
 ```ts
@@ -837,27 +837,27 @@ export class UserItemComponent implements OnInit {
 }
 ```
 
-`@Input` decorator is actually decorator generating function. So we have to call it like `@Input()`. You can use the first parameter as alias. I will give you an example for it too.
+`@Input` dekoratörü aslında bir dekoratör oluşturma fonksiyonu. O yüzden onu bir method çağırır gibi çağırıyoruz `@Input()`. İlk parametreye bir isim verebilirsiniz. Bununla ilgili bir örnek de göstereceğim.
 
-Now we test our application but result is same. Nothing changed :worried:
+Şimdi uygulamamızı tekrar test ediyoruz ama sonuç değişmiyor. :worried:
 
 ![](images/5.png)
 
-We forgot to set name because we never set it or access it from outside of user-item component. 
+Şimdi de name değişkenini set etmeyi unuttuk çünkü ona user-item komponentinin dışından erişimimiz yok.
 
-Edit the user-list.component.html
+Bu kez user-list.component.html dosyasını düzenliyoruz:
 
 ```html
 <app-user-item *ngFor="let user of users" [name]="user"></app-user-item>
 ```
 
-As you can see, we used a property binding. Basically `@Input` working as property. We set the value as user, because we declared a variable as `user` in ngFor directive.
+Gördüğünüz gibi property binding kullandık. Basitçe `@Input` bir özellik olarak çalışıyor. Biz değeri user olarak tanımladık, çünkü değişkeni ngFor içinde `user` olarak tanımlamıştık.
 
-Now give a shot. 
+Şimdi bir kez daha bakalım.
 
 ![](images/6.png)
 
-Lets check example of the alias parameter `@Input()`. 
+Şimdi de isim vererek `@Input()` kullanımına bir örnek verelim.
 
 app-user-item.ts
 
@@ -870,7 +870,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-item.component.css']
 })
 export class UserItemComponent implements OnInit {
-  @Input('user') name: string; // << as you can see we give some parameter 
+  @Input('user') name: string; // << gördüğünüz gibi bir parametre verdik
   constructor() { }
 
   ngOnInit() {
@@ -879,10 +879,10 @@ export class UserItemComponent implements OnInit {
 }
 ```
 
-Now component looking for `user` property. 
+Şimdi komponent `user` özelliği arayacak. 
 
 
-Edit the user-list.component.html
+Tekrar user-list.component.html dosyamızı düzenleyelim:
 
 ```html
 <app-user-item *ngFor="let user of users" [user]="user"></app-user-item>
@@ -890,7 +890,7 @@ Edit the user-list.component.html
 
 ### Output
 
-Last chapter we dive into Input. In our example we created edit and delete buttons. Also we must have a working user-create component too. Lets check it.
+Input'tan bahsedeceğimiz son kısım. Örneğimizde ekleme ve silme butonları eklemiştik. Ayrıca bir user-create komponenti de. Bir göz atalım.
 
 user-create.component.html
 
@@ -919,16 +919,16 @@ export class UserCreateComponent implements OnInit {
   name: string; // two-way-binding property
 
   @Output()
-  onUserCreated = new EventEmitter<string>(); // this is the our event that can be binded out of this component
-  // note: EventEmitter should be imported from @angular/core
+  onUserCreated = new EventEmitter<string>(); // bu komponent dışından çağırılabilen bir olayımız
+  // not: @angular/core modülünden EventEmitter import edilmiş olmalı 
 
-  onUserCreate() { // this function get trigger when user click button
-    this.onUserCreated.emit(this.name);  // we send data to eventemitter
+  onUserCreate() { // kullanıcı butona tıkladığında bu method tetiklenecek
+    this.onUserCreated.emit(this.name);  // buradan eventEmitter'e veri yollayacağız
   }
 }
 ```
 
-> **Note:** I will move users to upper component.
+> **Not:** Kullanıcıları üst komponente taşıyacağım.
 
 users.component.html
 
@@ -984,11 +984,11 @@ export class UserListComponent implements OnInit {
 }
 ```
 
-Lets check our application. We type some name to input. Then click the create button. :sunglasses:
+Uygulamamıza bir göz atalım. Eğer inputumuza bir isim yazarsak ve ardından create butonuna tıklarsak. :sunglasses:
 
 ### View Encapsulation
 
-Component's css files are specific to component. For example in css file;
+Komponentlerin css dosyaları o komponente özeldir. Örneğin;
 
 ```css
 b {
@@ -996,7 +996,7 @@ b {
 }
 ```
 
-This css compiled with some property selector so this way other components b element won't get any effect but you may don't want to do that. Simply changing encapsulation can modify this feature.
+Bu css derlendiğinde diğer komponentlerin b elementleri de bundan etkilenebilir fakat biz bunun olmasını istemeyiz. View Encapsulation tam olarak bu soruna çözüm buluyor.
 
 ```ts
 import { Component, ViewEncapsulation } from '@angular/core';
@@ -1014,9 +1014,9 @@ export class SomeComponent {
 
 ### Local reference
 
-Local reference makes a marking for DOM elements. We use that in `*ngIf` structure directive section. There is one more thing that I should write and thats named `@ViewChild` decorator.
+Local reference DOM elemanlarını işaretlemek için kullanılır. `*ngIf` gibi yapısal direktiflerin içinde kullanırız. Yazmam gereken bir şey daha var, `@ViewChild` dekoratörü.
 
-This decorator allows to access DOM element from code. If you know what are you going to do then you can use this decorator, otherwise please avoid using this feature.
+Bu dekoratör DOM elementlerine kod içinden erişime müsade eder. Eğer ne yaptığınızı biliyorsanız kullanın ancak aksi halde bu deokratörü kullanmaktan kaçının.
 
 ```ts
 import { Component, ViewChild, ElementRef } from '@angular/core';
@@ -1038,7 +1038,7 @@ export class SomeComponent {
 
 ### ng-content
 
-ng-content is a special directive that provide element's content. Normally angular will override the content of components. `<app-root>Loading...</app-root>` is good example for this consept. When angular handle `app-root` then `Loading` text will disapear. But what if we want it. 
+ng-content elementlerin içeriklerine erişmemizi sağlayan özel bir direktiftir. Normal şartlarda angular komponentlerin içeriklerini ezer. `<app-root>Loading...</app-root>` bu konsept için iyi bir örnektir. Angular `app-root` içine komponenti yerleştirdiği anda Loading metni yok olacaktır. Fakat ya bunu istemezsek.
 
 Let me show you an example.
 
