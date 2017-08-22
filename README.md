@@ -1,26 +1,25 @@
-Angular 4 - Notes
+Angular 4 - Notları
 ====================
 
+Bu kod deposu benim angular 4 notlarımın bir derlemesidir. Angular 2'yi deneyememiştim. Fakat şimdi Angular 4'e bir göz atmaya ve bir ders hazırlamaya karar verdim. Öğrendiğim her şeyi yazacağım, belki bu kod deposu sizin için de rehber olabilir.
 
-This repository is notes of my angular 4 journey. I couldn't switched to ng2. Now I decided to give a shot and getting course about ng4. I will write everthing that I learn, Maybe this repository guide you too.
+Çevirmen Notu: Teknik olarak çevirilmemesinin daha doğru olacağını düşündüğüm tabirleri (Input, Output, View, Encapsulation, Databinding) çevirmemeyi tercih ettim. Çünkü bu tabirlerle sorun yaşadığınızda tüm kaynaklarda bu şekilde geçecekler. Onun dışında çeviri hataları varsa her türlü katkıya açık olan bu repoya pr atabilirsiniz.
 
-Thanks [Maximilian Schwarzmuller](https://www.udemy.com/the-complete-guide-to-angular-2) for great guide.
-
-Farewell my friend.
+[Maximilian Schwarzmuller](https://www.udemy.com/the-complete-guide-to-angular-2)'e bu harika rehber için teşekkürler.
 
 
-Index
+İçindekiler
 ----------------
 
-- [Installation](#installation)
-- [Creating project](#creating-project)
-- [Serving project](#serving-project)
-- [Investigating created project](#investigating-created-project)
-- [Creating a new component](#creating-a-new-component)
-- [Create component with cli](#create-component-with-cli)
-- [Including bootstrap css to project](#including-bootstrap-css-to-project)
+- [Kurulum](#installation)
+- [Bir proje yaratmak](#creating-project)
+- [Projeyi çalıştırmak](#serving-project)
+- [Çalıştırılmış Projeyi İncelemek](#investigating-created-project)
+- [Yeni bir komponent oluşturmak](#creating-a-new-component)
+- [Komut satırı ile bir komponent oluşturmak](#create-component-with-cli)
+- [Projeye bootstrap eklemek](#including-bootstrap-css-to-project)
 - [Databinding](#databinding)
-- [Directives](#directives)
+- [Direktifler](#directives)
   - [ngIf](#ngif)
   - [ngFor](#ngfor)
   - [ngStyle](#ngstyle)
@@ -29,78 +28,76 @@ Index
 - [Input](#input)
 - [Output](#output)
 - [View Encapsulation](#view-encapsulation)
-- [Local Reference](#local-reference)
+- [Yerel Referanslar](#local-reference)
 - [ng-content](#ng-content)
-- [Life cycle of components](#life-cycle-of-components)
-- [Creating a new directive](#creating-a-new-directive)
+- [Komponentlerin Yaşam Döngüsü](#life-cycle-of-components)
+- [Yeni bir direktif oluşturmak](#creating-a-new-directive)
   - [HostListener](#hostlistener)
   - [HostBinding](#hostbinding)
-- [Services and dependency injection](#services-and-dependency-injection)
-  - [Injecting a service into another service](#injecting-a-service-into-another-service)
-  - [Event emitting service](#event-emitting-service)
-- [Router](#router)
-  - [Links](#links)
-  - [Active route](#active-route)
-  - [Navigating from code](#navigating-from-code)
-  - [Parameters of routes](#parameters-of-routes)
-  - [Nested routes](#nested-routes)
-  - [Redirecting](#redirecting)
+- [Servisler ve Bağlılıkların Zerki](#services-and-dependency-injection)
+  - [Bir servisi bir başka servise zerk etmek](#injecting-a-service-into-another-service)
+  - [Olay yayınlama servisi](#event-emitting-service)
+- [Rotalar](#router)
+  - [Linkler](#links)
+  - [Aktif Roota](#active-route)
+  - [Kod içinden yönlendirme](#navigating-from-code)
+  - [Rota parametreleri](#parameters-of-routes)
+  - [Birleşik Rotalar](#nested-routes)
+  - [Yönlendirme](#redirecting)
 
-### Installation
+### Kurulum
 
-To develop some applications we need to install node.js first. If you didn't know node.js, please check it before ng4. We will use angular cli. Angular cli will help us creating stuff. Its very useful tool.
+Uygulama geliştirmek için ilk önce node.js kurmamız gerekiyor. Eğer node.js nedir bilmiyorsanız Angular 4'ten önce lütfen ona bir göz atın. Biz angular komut satırı eklentisini kullanacağız, bu eklenti bize projelerimizi yaratırken yardımcı olacak. Oldukça kullanışlı bir araç.
 
 ```
 npm i @angular/cli -g
 ```
 
-We should install `@angular/cli` with global parameter. This parameter will use global node_modules folder rather than local one.
+Angular komut satırı paketini `@angular/cli` global parametresiyle yüklemeliyiz. Bu parametre proje lokaline değil global node_modules klasörüne kurulum sağlayacaktır. 
 
-Now we can use `ng` command in terminal.
+Artık terminalde `ng` komutunu kullanabiliyor olmamız gerek.
 
+### Proje yaratmak
 
-### Creating project
+Proje yaratmak için `ng` komutunu kullanacağız. Eğer terminale `ng` yazdığınızda bir hata alıyorsanız `Kurulum` adımında bir hata yapmışsınız demektir, lütfen o adıma gidip işlemleri doğru şekilde tamamladığınızdan emin olun. 
 
-To create project we will use `ng` command. Try to type `ng` in terminal if you get error then you failed `Installation` step. Please go there and make sure you did this steps right.
+`ng` komutu birden fazla opsiyonel parametreye sahiptir. O konuya da geleceğiz ancak öncelikle bir proje yaratmak için `new` parametresini kullanmalıyız.
 
-ng command has some more arguments too. We will come to that but rightnow we just have to create a project so we should use `new` argument.
-
-This argument will create a new project structure in current working directory. But we should give some project name to proceed. I will name the project as "my-first-app"
+Bu parametre güncel dizinimizde yeni bir proje yapısı oluşturacaktır. Ancak işlem sırasında bir proje ismi vermeliyiz. Ben proje ismi olarak ilk uygulamam anlamına gelen "my-first-app" ismini seçtim.
 
 ```
 ng new my-first-app
 ```
 
-After using this command in terminal some files will generated by `ng`. It will install necessary packages via npm. Wait until installation is done.
+Bu komutu kullandıktan sonra terminalimiz `ng` tarafından bazı dosyalar oluşturacak. Ardından gerekli npm paketlerini yükleyecek, işlemler tamamlanana kadar bekleyin.
 
+### Projeyi çalıştırmak
 
-### Serving project
-
-We just create a new project. Proceed to `my-first-app` folder. Use `serve` command of `ng`. It will do packaging stuff and create a http server.
+Az önce yeni bir proje oluşturduk. `my-first-app` klasörüne girip `ng` nin `serve` komutunu kullanırsak yüklenen paketler bir http sunucusu oluşturup yayına başlayacaktır.
 
 ```
 cd my-first-app
 ng serve
 ```
 
-In terminal output, there should be a url address. If you can't figure the address then with `--port xxx` parameter, you can change port number to whatever you want.
+Terminal çıktımızda bir url adresi olmalı. İsterseniz seçiminize bağlı olarak `--port xx` parametresiyle uygulamanın istediğiniz herhangi bir porttan yayınlanmasını sağlayabilirsiniz.
 
 ```
 ng serve --port 8080
 ```
 
-Typescript compiled and Webpack packed your application.
+Typescript javascript'e çevrildi ve Webpack uygulamanızı paketledi.
+Artık localhost:8080 adresnden uygulamaya erişebilirsiniz.
 
-Now try to access to [http://localhost:8080](http://localhost:8080)
 
+### Çalıştırılmış Projeyi İncelemek
 
-### Investigating created project
+> Daha fazla derinlere inmeden önce projeyi bir IDE ile açtığınızdan emin olun. Ben Visual Studio Code ya da WebStorm tavsiye ediyorum.
 
-> Before going deeper make sure you opened the project with an IDE software. I recommend Visual Studio Code or WebStorm..
+Proje dizininde `e2e` klasörünü, `src` klasörünü ve birkaç dosyayı göreceğiz. `e2e` klasörünü uçtan uca testleri içerir. Buna daha sonra göz atacağız. (Testlerin kaderi bu.) Projemizin tüm kaynak dosyaları `src` klasöründe bulunur. Diğer dosyalar da proje konfigürasyonlarıyla ilgili bilgileri, paket bağımlılıklarını ve benzeri detayları içerirler. İhtiyaç duyduğumuzda onlarla tekrar ilgileneceğiz.
 
-In project folder we can see `e2e` folder, `src` folder, and some files. `e2e` folder contains end to end testing stuff. We will check it after. All our project source  stuff are in `src` folder. Other files contains information about configurations, required packages etc. We will check them when we need.
+`src` klasörünün içinde birden fazla dosya var. Bu dizindeki en önemli dosya `index.html` dosyası. Bu dosya projemizin en üst noktası. Eğer dosyayı açarsanız aşağıdaki gibi olduğunu göreceksiniz.
 
-Inside of `src` folder there are multiple files. The most important file in this folder is `index.html` file. This file is the highest point of our project. If you open it you will see something like this.
 
 ```html
 <!doctype html>
@@ -133,9 +130,9 @@ export class AppComponent {
 }
 ```
 
-As you can see there is some property `selector` is setted to `app-root`. In angular components will bind to element that given as `selector`. Selector is kinda like css element selector. If you use `name` then you will select `tag`, if you use `.name` then you will select `class`, if you use `[name]` you will select `property`.
+Gördüğünüz gibi 'selector' olarak 'app-root' seçilmiş. Angular komponentleri elementlere `selector` adı verilen seçiciler ile bağlanırlar. Seçiciler bir bir çeşit css element seçicisi gibidir. Eğer `name` yazarsanız bir `etiket` seçmiş olursunuz, `.name` yazarsanız bir `class` seçmiş olursunuz ya da `[name]` yazarsanız bir `property` seçmiş olursunuz.
 
-`templateUrl` property routes component's template location. You can use `template` property too if you don't want to create html file.
+`templateUrl` özelliği komponentin arayüz şablonunun konumunu tutar. Bunun yerine `template` özelliğini kullanarak direkt bu dosyaya da html şablon yazabilirsiniz, ihtiyacınıza göre buna siz karar verebilirsiniz.
 
 ```ts
 import { Component } from '@angular/core';
@@ -151,7 +148,7 @@ export class AppComponent {
 }
 ```
 
-`styleUrls` property shows us component's css file location. You can use `styles` too if you don't want to create css file. Difference between `template` and `styles`, styles is expecting an array of string, not directly string.
+`styleUrls` özelliği bize komponentin stil dosyasının konumunu gösterir. Yine yukarıda olduğu gibi `styles` kullanarak da css dosyası kullanmadan direkt olarak bu dosyaya css yazabilirsiniz. Ancak `template` ile `styles` arasında bir fark bulunur, styles bir string dizisi kabul eder, doğrudan string veremezsiniz.
 
 ```ts
 import { Component } from '@angular/core';
@@ -171,9 +168,10 @@ export class AppComponent {
 }
 ```
 
-`app.component.spec.ts` file contains information about tests. We will ignore it just for now. 
+`app.component.spec.ts` dosyası testler hakkında işlemler içerir. Şimdilik bunu da erteliyoruz. (Söylemiştim testlerin kaderi bu.)
 
-In angular projects works under modules. These modules look like `java packages` or `c# namespaces`. Your components defined in a module. `app.module.ts` file contains our main module. 
+Angular projeleri modüller ile çalışır. Bu moduller `java` daki paketlere ya da `c#` daki isim uzaylarına benzerler. Sizin komponentleriniz bir modulde tanımlanır. `app.module.ts` dosyası ana modulu içerir.
+
 
 ```ts
 import { BrowserModule } from '@angular/platform-browser';
@@ -198,20 +196,21 @@ import { AppComponent } from './app.component';
 export class AppModule { }
 ```
 
-All components that using in this project should declared in this file. If we don't declare it, angular couldn't find component that we want to use. 
+Projede kullanılacak tüm komponentler bu dosyada deklare edilmelidir. Eğer burada deklare etmezsek kullandığımız zaman angular bu komponentleri bulamaz.
 
-Rightnow I won't explain other files that we didn't check. We will come to them too.
+Şu anda diğer dosyaları ayrıntılı olarak açıklamak istemiyorum. Bunlara da sonra geleceğiz.
 
-> Before going deeper I recommend to learn typescript. If you don't have a clue about it please check it.
+> Daha derine gitmeden önce typescript öğrenmenizi tavsiye ediyorum. 
+
+> Before going deeper I recommend to learn typescript. Eğer konu hakkında bilginiz yoksa bi göz atıp sonra buradan devam edin.
 
 
-### Creating a new component
+### Yeni bir komponent oluşturmak
 
-To create new component; first create a folder inside of `./src/app/` folder. We name it `server`.
+Yeni bir komponent oluştururken; önce `./src/app` dizininde bir `server` adında bir klasör oluşturalım.
+Bu klasör içinde de `server.component.ts` adında bir dosya oluşturalım. Ayrıca `server.component.html` adında bir dosya daha oluşturmalısınız.
 
-Inside of this folder create a file that called `server.component.ts`. Also you may create `server.component.html` too.
-
-In server.component.ts;
+server.component.ts içinde;
 
 ```ts
 export class ServerComponent {
@@ -219,7 +218,7 @@ export class ServerComponent {
 }
 ```
 
-We created a class that named `ServerComponent`. This class should exported out. We can't use if we didn't export it. we still have to do some stuff. We have to create a `decorator` that decorates this class is a `Component`. So lets do it?
+`ServerComponent` adında bir sınıf oluşturduk ve sınıfı export ettik. Eğer export etmeseydik bu sınıfı dışarıda kullanamazdık. Hala yapmamız gereken işler var. Bu sınıfı bir komponente çevirecek bir `decorator` oluşturmalıyız. Hadi yapalım o zaman?
 
 ```ts
 @Component({
@@ -230,7 +229,7 @@ export class ServerComponent {
 }
 ```
 
-But it won't compile. We have to import something.. `Component` decorator is defined in `@angular/core` package. We can import it from this package by like this.
+Fakat hala tamamlanmadı. Bir şey daha dahil etmeliyiz. `Component` dekoratörü `@angular/core` paketi içinde tanımlı. Bu paketi şu şekilde import edebiliriz.
 
 ```ts
 import { Component } from '@angular/core';
