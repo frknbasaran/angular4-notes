@@ -230,7 +230,7 @@ export class ServerComponent {
 }
 ```
 
-But it won't compile. We have to import something.. `Component` decorator is defined in `@angular/core` package. We can import it from this package by like this.
+But it won't completed. We have to import something.. `Component` decorator is defined in `@angular/core` package. We can import it from this package by like this.
 
 ```ts
 import { Component } from '@angular/core';
