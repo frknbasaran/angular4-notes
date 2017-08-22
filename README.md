@@ -416,13 +416,13 @@ Artık bootstrap kullanıma hazır.
 
 Databinding basitçe şablonlar ve sınıflar arasında verilerin bağlanmasını sağlar.
 
-* **OUT** String Interpolation: Bind a variable to template. Syntax `{{ data }}`
-* **OUT** Property Binding: Bind a variable to template's property. Syntax `[property]="data"`
-* **IN** Event Binding: Bind a event to class. Syntax `(event)="expression"`
+* **OUT** String Interpolation: Değişkeni şablona bağlar. Yazımı `{{ data }}` şeklindedir.
+* **OUT** Property Binding: Bir değişkeni şablonun bir özelliğine atar. Yazımı `[property]="data"` şeklindedir.
+* **IN** Olay yakalama: Olayı sınıftaki bir methoda bağlama. Yazımı `(event)="expression"` şeklindedir.
 
 #### String Interpolation
 
-Lets a create basic component that writes a name. Name should provided with String Interpolation from a variable that we define in class.
+Hadi isim yazan basit bir komponent yaratalım. İsim String Interpolation ile bizim sınıfımız içinde tanımlansın.  
 
 ```ts
 import { Component } from '@angular/core';
@@ -438,12 +438,12 @@ export class NameComponent {
 }
 ```
 
-Output:
+Sonuç:
 
 ![](images/2.png)
 
 
-This time lets add a 1 second timeout. After 1 second we will change the name to "Göksel"
+Bu sefer 1 saniyelik bir gecikme ekleyelim. 1 saniyenin ardından ismin Göksel olarak değişeceğini göreceğiz. Ne kadar güzel bir isim.
 
 ```ts
 import { Component } from '@angular/core';
@@ -465,11 +465,11 @@ export class NameComponent {
 }
 ```
 
-In the beginning it will show you ` My name is Doğan ` but after 1 second you will get ` My name is Göksel `. Databinding makes template render again. So you don't care rendering mechanism. 
+Başlangıçta bize ` My name is Doğan ` yazmasının 1 saniye sonrasında ` My name is Göksel ` yazısını gördük. Databinding şablonu render etti. Yani render konusunu kafanıza takmayın.
 
 #### Property binding and Event Binding
 
-This time we will use other binding types too.
+Şimdi diğer databinding(veri bağlama) tiplerini de görelim.
 
 ```ts
 import { Component } from '@angular/core';
@@ -489,17 +489,16 @@ export class NameComponent {
   }
 
   changeDisabled() {
-    this.isDisabled = !this.isDisabled; // reverse the value
+    this.isDisabled = !this.isDisabled; // değeri ters çevir
   }
 }
 ```
 
-At the beginning regular button isn't clickable. But when we click second button it will be enabled and you get alert "hello" when you click it.
+Başlangıçta button tıklanamaz durumda. Ancak diğer butona tıkladığımızda artık tıklanabilir duruma geçiyor ve siz butona tıkladığınızda "merhaba" diyen bir alert görüyorsunuz.
 
 #### Two way databinding
 
-There is one more databinding type of angular. Its called `Two way databinding`. This time events, properties and classes binded.
-
+Angular'da bir databinding tipi daha var. Bu da `Two way databinding` (İki yönlü veri bağlama). Bu sefer olaylar, özellikler ve sınıflar bağlanacak.
 
 ```ts
 import { Component } from '@angular/core';
@@ -517,25 +516,25 @@ export class NameComponent {
 }
 ```
 
-You will see that when input change class's name will automaticly change and then `My name is ____` will automaticly render back. If you change name from class then input's value will change too.
+Göreceksiniz input içindeki name özelliği değiştiğinde ` My name is _____ ` kısmı da otomatik olarak yeniden render edilecek. Eğer sınıftaki name özelliğini değiştirirseniz de input içindeki değer değişecektir.
 
-> **Note:** `ngModel` should be imported in `app.module.ts` file. Required module is `FormsModule`.
+> **Note:** `ngModel` `app.module.ts` dosyasında import edilmek zorundadır. Gerekli modülün adı `FormsModule`.
 
-### Directives
+### Direktifler
 
-There are 3 kinds of directives.
+3 tip direktif var.
 
-* Components
-* Structural Directives (you will see this as star `*` character)
-* Attribute Directives
+* Komponentler
+* Yapısal Direktifler (bunları `*` yıldız karakteri olarak göreceksiniz) 
+* Özellik Direktifleri
 
-You already know the components. Lets dive into structural directives.
+Komponentleri artık zaten biliyorsunuz. Hadi yapısal direktiflere geçelim.
 
-These directives are control full of dom. You may ask why?
+Bu direktifler dom'un tamamını kontrol ederler. Neden diye sorabilirsiniz.
 
 #### ngIf
 
-Lets check an example of `*ngIf`
+Hadi `*ngIf` örneğine bir göz atalım
 
 
 ```ts
@@ -555,9 +554,9 @@ export class NameComponent {
 }
 ```
 
-In this example when you click the button, some text appears. But interesting part is when visible is false, p element won't exist. It will be created when visible is true. Structural directives modify current dom and remove.
+Bu örnekte biz butona tıkladığımızda bir metin beliriyor. Ancak ilginç olan visible değişkeni false olduğunda p elementi henüz yok. Sadece visible değeri true olduğunda yaratılıyor. Yapısal direktifler var olan domu düzenler ya da yok ederler.
 
-You can use else syntax (Angular 4) too.
+Ayrıca else de (Angular 4) kullanabilirsiniz.
 
 
 ```ts
@@ -583,11 +582,11 @@ export class NameComponent {
 }
 ```
 
-Please try it before continue.
+Devam etmeden önce lütfen deneyin.
 
 #### ngFor
 
-ngFor is a structural directive too. It will modify and clone itself as given array. For example;
+ngFor da yapısal bir direktifdir. Verilen diziye göre kendini düzenler ve kopyalar. Örneğin;
 
 ```ts
 import { Component } from '@angular/core';
@@ -611,7 +610,7 @@ export class NameComponent {
 
 ![](images/3.png)
 
-ngFor also has a index syntax. If you use a `;` character then define a variable that equals the index; you can use the index in the scope.
+ngFor ayrıca index'e de sahiptir. Eğer `;` bu kapsamda kullanabileceğiniz bir index değişkeni tanımlayabilirsiniz.
 
 ```ts
 import { Component } from '@angular/core';
@@ -638,7 +637,7 @@ export class NameComponent {
 
 #### ngStyle
 
-ngStyle is an attribute directive. It doesn't like structural directives.
+ngStyle bir özellik direktifidir. Yapısal direktifler gibi görünmez.
 
 ```ts
 import { Component } from '@angular/core';
@@ -665,11 +664,11 @@ export class NameComponent {
 }
 ```
 
-You will see that Toyota item will green but Ford item will red.
+Toyota elemanının yeşil Ford elemanının kırmızı olduğunu göreceksiniz.
 
 #### ngClass
 
-ngClass is an attribute directive too.
+ngClass da özellik direktifidir.
 
 ```ts
 import { Component } from '@angular/core';
@@ -702,7 +701,7 @@ export class NameComponent {
 }
 ```
 
-You will see that Toyota item will looking normal but Ford item will be red.
+Toyota elemanının normal ancak Ford elemanının kırmızı göründüğünü göreceksiniz.
 
 #### ngSwitch
 
