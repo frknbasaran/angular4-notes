@@ -3,6 +3,8 @@ Angular 4 - Notları
 
 Çevirmen Notu: Notların sahibi ve bu reponun orjinaline sahip olan [co3moz](https://github.com/co3moz)'a linkten ulaşabilirsiniz. Bu repo ingilizce problemi olan arkadaşların da bu notlardan faydalanabilmesi için Türkçe'ye çevrilmiştir.
 
+İlgili repoya türkçe dil seçeneği eklenmiştir.
+
 Teknik olarak çevirilmemesinin daha doğru olacağını düşündüğüm tabirleri (Input, Output, View, Encapsulation, Databinding) çevirmemeyi tercih ettim. Çünkü bu tabirlerle sorun yaşadığınızda tüm kaynaklarda bu şekilde geçecekler. Onun dışında çeviri hataları varsa her türlü katkıya açık olan bu repoya pr atabilirsiniz.
 
 Bu kod deposu benim angular 4 notlarımın bir derlemesidir. Angular 2'yi deneyememiştim. Fakat şimdi Angular 4'e bir göz atmaya ve bir ders hazırlamaya karar verdim. Öğrendiğim her şeyi yazacağım, belki bu kod deposu sizin için de rehber olabilir.
